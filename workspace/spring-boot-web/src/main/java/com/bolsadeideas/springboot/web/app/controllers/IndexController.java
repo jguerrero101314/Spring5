@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -21,6 +22,14 @@ import com.bolsadeideas.springboot.web.app.model.Usuario;
 @RequestMapping("/app")
 public class IndexController {
 	
+	@Value("${texto.indexcontroller.index.titulo}")
+	private String textoIndex;
+	@Value("${texto.indexcontroller.index.perfil}")
+	private String textoPerfil;
+	@Value("${texto.indexcontroller.index.listar}")
+	private String textoListado;
+	
+	
 	//@RequestMapping(value="/index", method=RequestMethod.GET)
 	//@GetMapping(value="/index")
 	//@GetMapping("/index")
@@ -29,11 +38,11 @@ public class IndexController {
 		  //Model model
 		 // ModelMap model
 		  //Map<String, Object> map
-		  model.addAttribute("titulo","Hola Spring Framework con model!");		
+		  //model.addAttribute("titulo","Hola Spring Framework con model!");		
 		  //map.put("titulo","Hola Spring Framework con Map!");	
 		 // mv.addObject("titulo","Hola Spring Framework con ModelAndView!");	
 		 // mv.setViewName("index");
-		  
+		  model.addAttribute("titulo", textoIndex);	
 		//  return mv;
 		return "index";
 	}
@@ -46,8 +55,8 @@ public class IndexController {
 		  usuario.setEmail("joelg104@hotmail.com");
 		  
 		  model.addAttribute("usuario", usuario );
-		  model.addAttribute("titulo","Perfil del usuario: ".concat(usuario.getNombre() + " " + usuario.getApellido()));	
-		  
+		 // model.addAttribute("titulo","Perfil del usuario: ".concat(usuario.getNombre() + " " + usuario.getApellido()));	
+		  model.addAttribute("titulo",textoPerfil.concat(usuario.getNombre() + " " + usuario.getApellido()));	
 		  return "perfil";
 		  
 	  }
@@ -62,8 +71,9 @@ public class IndexController {
 		  
 		/*  usuarios.add(new Usuario("Jose","Guevara", "jguevara@hotmail.com"));
 		  usuarios.add(new Usuario("Luis","Robinson", "lrobinson@outlook.com"));*/
-		  model.addAttribute("titulo", "Listado de usuarios" );
+		 // model.addAttribute("titulo", "Listado de usuarios" );
 		 // model.addAttribute("usuarios", usuarios);
+		  model.addAttribute("titulo", textoListado );
 		  return "listar";
 	  }
 	  @ModelAttribute("usuarios")
